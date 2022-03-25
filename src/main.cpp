@@ -10,6 +10,7 @@ int main(int argc, char* argv[]){
 
 	GameEngine* m_Game = new GameEngine();
 	m_Game->InitGame("My First Game", 640, 380);
+	
 	if(m_Game->m_bInitialized){
 		int nExit = m_Game->Run();
 		switch(nExit){

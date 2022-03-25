@@ -19,11 +19,24 @@ OUT_DIR=$(BASE_DIR)$(CONFIG)/exe/
 OUT_NAME=test.out
 OUT=$(OUT_DIR)$(OUT_NAME)
 
-CC=g++
-CFLAGS=-I$(INC_DIR) -ggdb
+SFML_INC_DIR=/usr/local/include
+SFML_LIB_DIR=/usr/local/lib
 
-SFML_LFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
-LFLAGS=-Xlinker -Map=$(OUT:.out=.map) $(SFML_LFLAGS)
+#SFML_LIB_NAMES=libsfml-audio-s.a libsfml-graphics-s.a libsfml-network-s.a libsfml-system-s.a libsfml-window-s.a
+SFML_LIB_NAMES=sfml-graphics sfml-window sfml-system
+
+SFML_LFLAGS=-L$(SFML_LIB_DIR) $(patsubst %,-l%, $(SFML_LIB_NAMES))
+#SFML_LFLAGS=$(SFML_LIBS)
+#SFML_LFLAGS=-l$(SFML_LIB_DIR)sfml-graphics.a -l$(SFML_LIB_DIR)sfml-window -l$(SFML_LIB_DIR)sfml-system
+
+
+
+CC=g++
+CFLAGS=-I$(INC_DIR) -I$(SFML_INC_DIR) -ggdb -std=c++17
+
+
+
+LFLAGS=-Xlinker -Map=$(OUT:.out=.map)
 
 all: link
 
@@ -37,10 +50,11 @@ $(OBJS_DIR)%.o: $(SRC_DIR)%.cpp
 
 link: $(OUT)
 $(OUT) : $(OBJS)
-	$(CC) $^ -o $@ $(LFLAGS)
+	$(CC) $^ -o $@ $(SFML_LFLAGS)
 
 run:
-	@sudo $(OUT)
+	# export LD_LIBRARY_PATH=$(SFML_LIB_DIR) &&
+	$(OUT)
 
 clean:
 	rm -f $(OBJS)

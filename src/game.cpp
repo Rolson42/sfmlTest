@@ -24,7 +24,7 @@ void GameEngine::InitGame(std::string szTitle, int width, int height)
   m_szGameTitle = szTitle;
   m_nWidth = width;
   m_nHeight = height;
-  sf::RenderWindow m_Window(sf::VideoMode(m_nWidth, m_nHeight), m_szGameTitle);
+  sf::Window m_Window(sf::VideoMode(m_nWidth, m_nHeight), m_szGameTitle);
 
   //m_Window.clear(sf::Color::White);
   //m_Window.display();
@@ -54,7 +54,7 @@ void GameEngine::InitGame(std::string szTitle, int width, int height)
     // Game Logic
 
     // Game Render
-    m_Window.clear(sf::Color::White);
+    m_Window.setActive();
 
 
     m_Window.display();
@@ -85,7 +85,7 @@ int GameEngine::Run()
     // Game Logic
 
     // Game Render
-    m_Window.clear(sf::Color::White);
+    m_Window.setActive();
 
 
     m_Window.display();

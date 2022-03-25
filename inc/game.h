@@ -17,7 +17,7 @@ public:
 
 private:
 
-  sf::RenderWindow m_Window;
+  sf::Window m_Window;
 
   std::string m_szGameTitle;
   int m_nWidth;
